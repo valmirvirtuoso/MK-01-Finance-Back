@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import authRoutes from './routes/auth-routes.js';
 import cardRoutes from './routes/card-routes.js';
+import categoryRoutes from './routes/category-routes.js';
 
 const app = express();
 
@@ -12,5 +13,6 @@ app.use(express.json());
 //  Rotas
 app.use('/auth', authRoutes);
 app.use('/cards', cardRoutes);
+app.use('/categories', categoryRoutes);
 
 export { app };
