@@ -9,6 +9,7 @@ export async function create(req: AuthRequest, res: Response) {
         const category = await categoryService.create(req.body, req.userId!);
         res.status(201).json(category);
     } catch (error: any) {
+        console.error(error);
         res.status(400).json({ error: error.message });
     }
 }
@@ -18,6 +19,7 @@ export async function list(req: AuthRequest, res: Response) {
         const categories = await categoryService.getAll(req.userId!);
         res.status(200).json(categories);
     } catch (error) {
+        console.error(error);
         return res.status(400).json({ message: "Erro ao buscar as categorias" });
     }
 }
@@ -39,6 +41,7 @@ export async function update(req: AuthRequest, res: Response) {
         const category = await categoryService.update(categoryId, req.body, userId);
         res.status(200).json(category);
     } catch (error: any) {
+        console.error(error);
         res.status(400).json({ error: error.message });
     }
 }
@@ -60,6 +63,7 @@ export async function remove(req: AuthRequest, res: Response) {
         await categoryService.delete(categoryId, userId);
         res.status(200).json({ message: "Categoria deletada com sucesso" });
     } catch (error: any) {
+        console.error(error);
         res.status(400).json({ error: error.message });
     }
 }

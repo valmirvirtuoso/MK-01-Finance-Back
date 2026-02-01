@@ -38,5 +38,41 @@ describe('Card Service', () => {
         ).rejects.toThrow('Você já possui um cartão com este nome');
     });
 
+    it('Deve atualizar um cartão com sucesso', async () => {
+        const cardData = { name: 'Inter', limit: 1000, closingDay: 5, dueDay: 12 };
+        const card = await service.create(cardData, mockUserId);
+
+        const updatedCard = await service.update(card._id.toString(), { name: 'Nubank' }, mockUserId);
+
+        expect(updatedCard.name).toBe('Nubank');
+    })
+
+    it('Não deve atualizar um cartão que não existe', async () => {
+        const cardData = { name: 'Inter', limit: 1000, closingDay: 5, dueDay: 12 };
+        await service.create(cardData, mockUserId);
+
+        await expect(
+                service.update(mockUserId, {  name: 'Nubank' }, mockUserId)
+        ).rejects.toThrow('Cartão não encontrado ou acesso negado');
+    })
+
+     it('Deve deletar um cartão com sucesso', async () => {
+        const cardData = { name: 'Inter', limit: 1000, closingDay: 5, dueDay: 12 };
+        const card = await service.create(cardData, mockUserId);
+
+        const deletedCard = await service.delete(card._id.toString(), mockUserId);
+        expect(deletedCard._id.toString()).toBe(card._id.toString());
+    })
+
+    
+    it('Não deve deletar um cartão que não existe', async () => {
+        const cardData = { name: 'Inter', limit: 1000, closingDay: 5, dueDay: 12 };
+        await service.create(cardData, mockUserId);
+
+        await expect(
+             service.delete(mockUserId, mockUserId)
+        ).rejects.toThrow('Cartão não encontrado ou acesso negado');
+    })
+
 
 });
