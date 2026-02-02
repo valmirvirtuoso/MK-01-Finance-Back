@@ -3,6 +3,7 @@ import cors from 'cors';
 import authRoutes from './routes/auth-routes.js';
 import cardRoutes from './routes/card-routes.js';
 import categoryRoutes from './routes/category-routes.js';
+import transactionRoutes from './routes/transaction-routes.js';
 
 const app = express();
 
@@ -14,5 +15,6 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/cards', cardRoutes);
 app.use('/categories', categoryRoutes);
+app.use('/transactions', transactionRoutes);
 
 export { app };
